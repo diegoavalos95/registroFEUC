@@ -4,6 +4,10 @@ import { check } from 'meteor/check';
 
 export const Registro = new Mongo.Collection('registro');
 
+if (Meteor.isServer) {
+  Meteor.publish('registros', () => Registro.find());
+}
+
 Meteor.methods({
   'registro.insert'(registro) {
     if (!registro.terminosAceptados) { throw new Meteor.Error('terminos-no-aceptados'); }
