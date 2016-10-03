@@ -2,12 +2,32 @@ import React from 'react';
 import {mount} from 'react-mounter';
 
 import MainLayout from '/imports/ui/layouts/MainLayout';
-import HelloWorld from '/imports/ui/components/HelloWorld';
+import Info from '/imports/ui/components/registro/Info';
+import RegistroForm from '/imports/ui/components/registro/RegistroForm';
+import Admin from '/imports/ui/components/admin/AdminPage';
+import Sign from '/imports/ui/components/admin/Sign';
+
 
 FlowRouter.route('/', {
   action() {
     mount(MainLayout, {
-      content: <HelloWorld name="Alexis" />
+      content: <Info />
+    });
+  }
+});
+
+FlowRouter.route('/registro', {
+  action() {
+    mount(MainLayout, {
+      content: <RegistroForm />
+    });
+  }
+});
+
+FlowRouter.route('/admin', {
+  action() {
+    mount(MainLayout, {
+      content: <Admin />
     });
   }
 });
