@@ -4,12 +4,17 @@ import TextField from 'material-ui/TextField';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 export default class RegistroForm extends React.Component {
 	constructor(props) {
 		super(props);
 
+
+
 		this.state = {
+			open : true,
 			folio: '',
 			categoria: '10k',
 			usuario: {
@@ -43,6 +48,10 @@ export default class RegistroForm extends React.Component {
 		this.handleEdadChange = this.handleEdadChange.bind(this);
 		this.registrarse = this.registrarse.bind(this);
 		this.handleEnfermedadChange = this.handleEnfermedadChange.bind(this);
+	}
+
+	handleClose() {
+		this.setState({open : false});
 	}
 
 	handleFolioChange(e) {
@@ -138,31 +147,59 @@ export default class RegistroForm extends React.Component {
 	}
 
 	registrarse() {
-		const registro = {
-			terminosAceptados: this.state.terminosAceptados,
-			folio: this.state.folio,
-      categoria: this.state.categoria,
-      usuario: {
-        nombres: this.state.usuario.nombres,
-        apPaterno: this.state.usuario.apPaterno,
-        apMaterno: this.state.usuario.apMaterno,
-        telefono: this.state.usuario.telefono,
-        correo: this.state.usuario.correo,
-        enfermedad: this.state.usuario.enfermedad ? this.state.usuario.enfermedad : '',
-        sexo: this.state.usuario.sexo,
-        edad: this.state.usuario.edad
-      },
-      contactoEmergencia: {
-        nombre: this.state.contactoEmergencia.nombre,
-        telefono: this.state.contactoEmergencia.telefono
-      }
+		if(!this.state.terminosAceptados) {
+			<Dialog
+          		title="Dialog With Actions"
+          		modal={false}
+          		open={this.state.open}
+          		onRequestClose={this.handleClose}
+        		>
+          			The actions in this window were passed in as an array of React objects.
+        	</Dialog>
 		}
-		Meteor.call('registro.insert', registro);
+		else {
+			const registro = {
+				terminosAceptados: this.state.terminosAceptados,
+				folio: this.state.folio,
+				categoria: this.state.categoria,
+				usuario: {
+					nombres: this.state.usuario.nombres,
+					apPaterno: this.state.usuario.apPaterno,
+					apMaterno: this.state.usuario.apMaterno,
+					telefono: this.state.usuario.telefono,
+					correo: this.state.usuario.correo,
+					enfermedad: this.state.usuario.enfermedad,
+					sexo: this.state.usuario.sexo,
+					edad: this.state.usuario.edad
+				},
+				contactoEmergencia: {
+					nombre: this.state.contactoEmergencia.nombre,
+					telefono: this.state.contactoEmergencia.telefono
+				}
+			}
 
-		FlowRouter.go('/registro/exitoso');
+			Meteor.call('registro.insert', registro);
+
+			FlowRouter.go('/registro/exitoso');
+		}
+
+		
 	}
 
 	render() {
+		const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
 		return <div>
 			<h1>Registro</h1>
 			<TextField
