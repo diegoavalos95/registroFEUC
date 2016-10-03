@@ -5,9 +5,9 @@ import MainLayout from '/imports/ui/layouts/MainLayout';
 import Info from '/imports/ui/components/registro/Info';
 import RegistroForm from '/imports/ui/components/registro/RegistroForm';
 import RegistroExitoso from '/imports/ui/components/registro/RegistroExitoso';
-import Admin from '/imports/ui/components/admin/AdminPage';
+import AdminPageContainer from '/imports/ui/components/admin/AdminPageContainer';
 import Sign from '/imports/ui/components/admin/Sign';
-
+import Login from '/imports/ui/components/admin/Login';
 
 FlowRouter.route('/', {
   action() {
@@ -35,8 +35,24 @@ FlowRouter.route('/registro/exitoso', {
 
 FlowRouter.route('/admin', {
   action() {
-    mount(MainLayout, {
-      content: <Admin />
-    });
+    if (Meteor.userId()) {
+      mount(MainLayout, {
+        content: <AdminPageContainer />
+      });
+    } else {
+      FlowRouter.go('/login');
+    }
+  }
+});
+
+FlowRouter.route('/login', {
+  action() {
+    if (!Meteor.userId()) {
+      mount(MainLayout, {
+        content: <Login />
+      });
+    } else {
+      FlowRouter.go('/admin');
+    }
   }
 });

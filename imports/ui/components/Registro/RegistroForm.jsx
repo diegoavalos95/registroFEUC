@@ -24,7 +24,7 @@ export default class RegistroForm extends React.Component {
 				telefono: '',
 				correo: '',
 				edad: '',
-				sexo: '',
+				sexo: 'h',
 				enfermedad: ''
 			},
 			contactoEmergencia: {
