@@ -14,7 +14,7 @@ export default class RegistroForm extends React.Component {
 
 
 		this.state = {
-			open : false,
+			open: false,
 			folio: '',
 			categoria: '10k',
 			usuario: {
@@ -48,10 +48,11 @@ export default class RegistroForm extends React.Component {
 		this.handleEdadChange = this.handleEdadChange.bind(this);
 		this.registrarse = this.registrarse.bind(this);
 		this.handleEnfermedadChange = this.handleEnfermedadChange.bind(this);
+		this.handleClose = this.handleClose.bind(this);
 	}
 
 	handleClose() {
-		this.setState({open : false});
+		this.setState({open: false});
 	}
 
 	handleFolioChange(e) {
@@ -182,18 +183,13 @@ export default class RegistroForm extends React.Component {
 	render() {
 		const actions = [
 	      <FlatButton
-	        label="Cancel"
-	        primary={true}
-	        onTouchTap={this.handleClose}
-	      />,
-	      <FlatButton
-	        label="Submit"
+	        label="Aceptar"
 	        primary={true}
 	        keyboardFocused={true}
 	        onTouchTap={this.handleClose}
 	      />,
     	];
-    	
+
 		return <div>
 			<h1>Registro</h1>
 			<TextField
@@ -292,13 +288,13 @@ export default class RegistroForm extends React.Component {
 				mismo." />
 			<RaisedButton label="Registrarse" onTouchTap={this.registrarse} primary={true} />
 			<Dialog
-          		title="Dialog With Actions"
+          		title="Aviso"
           		modal={false}
           		actions={actions}
           		open={this.state.open}
           		onRequestClose={this.handleClose}
         		>
-          			The actions in this window were passed in as an array of React objects.
+          			Debes aceptar los términos y condiciones para continuar.
         	</Dialog>
 	</div>
 	}
