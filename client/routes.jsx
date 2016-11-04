@@ -3,7 +3,7 @@ import {mount} from 'react-mounter';
 
 import MainLayout from '/imports/ui/layouts/MainLayout';
 import Info from '/imports/ui/components/registro/Info';
-import RegistroForm from '/imports/ui/components/registro/RegistroForm';
+import NuevoRegistro from '/imports/ui/components/registro/NuevoRegistro';
 import RegistroExitoso from '/imports/ui/components/registro/RegistroExitoso';
 import AdminPageContainer from '/imports/ui/components/admin/AdminPageContainer';
 import Sign from '/imports/ui/components/admin/Sign';
@@ -21,7 +21,7 @@ FlowRouter.route('/', {
 FlowRouter.route('/registro', {
   action() {
     mount(MainLayout, {
-      content: <RegistroForm />
+      content: <NuevoRegistro />
     });
   }
 });
