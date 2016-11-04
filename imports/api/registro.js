@@ -38,4 +38,4 @@ Meteor.methods({
   'registro.remove'(registroID) {
     Registro.remove({_id: registroID});
   }
-})
+});

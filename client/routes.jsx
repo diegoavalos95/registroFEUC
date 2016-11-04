@@ -8,6 +8,7 @@ import RegistroExitoso from '/imports/ui/components/registro/RegistroExitoso';
 import AdminPageContainer from '/imports/ui/components/admin/AdminPageContainer';
 import Sign from '/imports/ui/components/admin/Sign';
 import Login from '/imports/ui/components/admin/Login';
+import Single from '/imports/ui/components/admin/Single';
 
 FlowRouter.route('/', {
   action() {
@@ -38,6 +39,18 @@ FlowRouter.route('/admin', {
     if (Meteor.userId()) {
       mount(MainLayout, {
         content: <AdminPageContainer />
+      });
+    } else {
+      FlowRouter.go('/login');
+    }
+  }
+});
+
+FlowRouter.route('/registrosingle', {
+  action() {
+    if (Meteor.userId()) {
+      mount(MainLayout, {
+        content: <Single />
       });
     } else {
       FlowRouter.go('/login');
