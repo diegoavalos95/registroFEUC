@@ -5,6 +5,7 @@ import { check } from 'meteor/check';
 export const Registro = new Mongo.Collection('registro');
 
 if (Meteor.isServer) {
+  // este es para tener acceso a todos los registros (ojo, solo los usuarios logeados pueden acceder)
   Meteor.publish('registros', () => Registro.find());
 }
 
@@ -31,10 +32,8 @@ Meteor.methods({
         telefono: registro.contactoEmergencia.telefono
       }
     });
-  }
-});
+  },
 
-Meteor.methods({
   'registro.remove'(registroID) {
     Registro.remove({_id: registroID});
   }
