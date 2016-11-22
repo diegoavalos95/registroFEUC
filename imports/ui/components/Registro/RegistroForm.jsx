@@ -10,23 +10,14 @@ import FlatButton from 'material-ui/FlatButton';
 export default class RegistroForm extends React.Component {
 	constructor(props) {
 		super(props);
-
-    this.state = {
-      open: false
-    }
 	}
-
-  handleClose() {
-    this.setState({open: false});
-  }
-
 	render() {
 		const actions = [
 	      <FlatButton
 	        label="Aceptar"
 	        primary={true}
 	        keyboardFocused={true}
-	        onTouchTap={this.handleClose}
+	        onTouchTap={this.props.handleClose}
 	      />,
     	];
 
@@ -112,30 +103,33 @@ export default class RegistroForm extends React.Component {
 			value={this.props.contactoEmergencia.telefono}
 			onChange={this.props.handleContactoTelefonoChange}
 		/>
-		<Checkbox
-			checked={this.props.terminosAceptados}
-			onCheck={this.props.handleTerminosChange}
-			label="Se entiende y se acepta que la participación en este evento deportivo conlleva riesgo de lesiones.
+    {this.props.showTerminos ? 
+		<div>
+      <Checkbox
+  			checked={this.props.terminosAceptados}
+  			onCheck={this.props.handleTerminosChange}
+  			label="Se entiende y se acepta que la participación en este evento deportivo conlleva riesgo de lesiones.
 
-				Voluntariamente y con el conocimiento de ello, reconozco, acepto y asumo, el riesgo. Al participar
+  				Voluntariamente y con el conocimiento de ello, reconozco, acepto y asumo, el riesgo. Al participar
 
-				en esta carrera libero a la Federación de Egresados de la Universidad de Colima, patrocinadores y
+  				en esta carrera libero a la Federación de Egresados de la Universidad de Colima, patrocinadores y
 
-				comité organizador de cualquier responsabilidad en el caso de que ocurriera algún percance y
+  				comité organizador de cualquier responsabilidad en el caso de que ocurriera algún percance y
 
-				desisto de cualquier demanda o reclamación moral, monetaria y legal de cualquier índole por el
+  				desisto de cualquier demanda o reclamación moral, monetaria y legal de cualquier índole por el
 
-				mismo." />
-			<RaisedButton label="Registrarse" onTouchTap={this.props.accion} primary={true} />
-			<Dialog
-          		title="Aviso"
-          		modal={false}
-          		actions={actions}
-          		open={this.open}
-          		onRequestClose={this.handleClose}
-        		>
-          			Debes aceptar los términos y condiciones para continuar.
-        	</Dialog>
+  				mismo." />
+        <Dialog
+          title="Aviso"
+          modal={false}
+          actions={actions}
+          open={this.props.open}
+          onRequestClose={this.props.handleClose}
+        >
+          Debes aceptar los términos y condiciones para continuar.
+        </Dialog>
+    </div> : null}
+		<RaisedButton label="Registrarse" onTouchTap={this.props.accion} primary={true} />
 	</div>
 	}
 }

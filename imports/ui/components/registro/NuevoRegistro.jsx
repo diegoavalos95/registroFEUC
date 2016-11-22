@@ -12,12 +12,12 @@ import RegistroForm from './RegistroForm';
 export default class NuevoRegistro extends React.Component {
   constructor(props) {
     super(props);
-
+    const reg = this.props.registro;
     this.state = {
       open: false,
-      folio: '',
-      categoria: '10k',
-      usuario: {
+      folio: reg ? reg.folio : '',
+      categoria: reg ? reg.categoria : '',
+      usuario: reg ? reg.usuario : {
         nombres: '',
         apPaterno: '',
         apMaterno: '',
@@ -27,7 +27,7 @@ export default class NuevoRegistro extends React.Component {
         sexo: 'h',
         enfermedad: ''
       },
-      contactoEmergencia: {
+      contactoEmergencia: reg ? reg.contactoEmergencia : {
         nombre: '',
         telefono: ''
       },
@@ -183,6 +183,7 @@ export default class NuevoRegistro extends React.Component {
   render() {
     return <RegistroForm
       usuario={this.state.usuario}
+      showTerminos={!this.props.registro}
       contactoEmergencia={this.state.contactoEmergencia}
       folio={this.state.folio}
       terminosAceptados={this.state.terminosAceptados}
@@ -199,6 +200,8 @@ export default class NuevoRegistro extends React.Component {
       handleContactoNombreChange={this.handleContactoNombreChange}
       handleContactoTelefonoChange={this.handleContactoTelefonoChange}
       handleTerminosChange={this.handleTerminosChange}
-      accion={this.registrarse} />; 
+      accion={this.registrarse}
+      open={this.state.open}
+      handleClose={this.handleClose} />; 
   }
 }
