@@ -2,7 +2,9 @@
   "name": "registroFeuc",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
+    "build-css": "node-sass --include-path scss scss/main.scss public/css/main.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
   "dependencies": {
     "bcrypt": "^0.8.7",
@@ -13,5 +15,9 @@
     "react-dom": "^15.3.2",
     "react-mounter": "^1.2.0",
     "react-tap-event-plugin": "^1.0.0"
+  },
+  "devDependencies": {
+    "node-sass": "^3.13.0",
+    "nodemon": "^1.11.0"
   }
 }
