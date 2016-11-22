@@ -31,6 +31,7 @@ export default class NuevoRegistro extends React.Component {
         nombre: '',
         telefono: ''
       },
+      categoria: reg ? reg.categoria : '10k',
       terminosAceptados: false
     }
 
@@ -148,33 +149,36 @@ export default class NuevoRegistro extends React.Component {
   }
 
   registrarse() {
-    if(!this.state.terminosAceptados) {
-      this.setState({open : true});
-    }
-    else {
-      const registro = {
-        terminosAceptados: this.state.terminosAceptados,
-        folio: this.state.folio,
-        categoria: this.state.categoria,
-        usuario: {
-          nombres: this.state.usuario.nombres,
-          apPaterno: this.state.usuario.apPaterno,
-          apMaterno: this.state.usuario.apMaterno,
-          telefono: this.state.usuario.telefono,
-          correo: this.state.usuario.correo,
-          enfermedad: this.state.usuario.enfermedad,
-          sexo: this.state.usuario.sexo,
-          edad: this.state.usuario.edad
-        },
-        contactoEmergencia: {
-          nombre: this.state.contactoEmergencia.nombre,
-          telefono: this.state.contactoEmergencia.telefono
-        }
+    const registro = {
+      terminosAceptados: this.state.terminosAceptados,
+      folio: this.state.folio,
+      categoria: this.state.categoria,
+      usuario: {
+        nombres: this.state.usuario.nombres,
+        apPaterno: this.state.usuario.apPaterno,
+        apMaterno: this.state.usuario.apMaterno,
+        telefono: this.state.usuario.telefono,
+        correo: this.state.usuario.correo,
+        enfermedad: this.state.usuario.enfermedad,
+        sexo: this.state.usuario.sexo,
+        edad: this.state.usuario.edad
+      },
+      contactoEmergencia: {
+        nombre: this.state.contactoEmergencia.nombre,
+        telefono: this.state.contactoEmergencia.telefono
       }
+    };
 
-      Meteor.call('registro.insert', registro);
-
-      FlowRouter.go('/registro/exitoso');
+    if (this.props.registro && this.props.registro.usuario) {
+      Meteor.call('registro.update', this.props.registro._id, registro);
+    } else {
+      if(!this.state.terminosAceptados) {
+        this.setState({open : true});
+      }
+      else {
+        Meteor.call('registro.insert', registro);
+        FlowRouter.go('/registro/exitoso');
+      }      
     }
 
     
@@ -202,6 +206,7 @@ export default class NuevoRegistro extends React.Component {
       handleTerminosChange={this.handleTerminosChange}
       accion={this.registrarse}
       open={this.state.open}
-      handleClose={this.handleClose} />; 
+      handleClose={this.handleClose}
+      categoria={this.state.categoria} />; 
   }
 }
