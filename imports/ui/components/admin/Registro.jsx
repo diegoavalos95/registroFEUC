@@ -8,7 +8,6 @@ export default class Registro extends React.Component {
 
 	render() {
     console.log(this.props.registro);
-    // if this.props.loading then registro is not reading
 		return <div>{'kljk'}</div>;
 	}
 }
