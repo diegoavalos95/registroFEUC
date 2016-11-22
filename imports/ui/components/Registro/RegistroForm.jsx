@@ -29,7 +29,7 @@ export default class RegistroForm extends React.Component {
 				onChange={this.props.handleFolioChange}
 	    />
 		<h2>Categoria</h2>
-		<RadioButtonGroup name="categoria" defaultSelected="10k" onChange={this.props.handleCategoriaChange}>
+		<RadioButtonGroup name="categoria" defaultSelected={this.props.categoria} onChange={this.props.handleCategoriaChange}>
       <RadioButton
         value="10k"
         label="10 K"
@@ -129,7 +129,7 @@ export default class RegistroForm extends React.Component {
           Debes aceptar los términos y condiciones para continuar.
         </Dialog>
     </div> : null}
-		<RaisedButton label="Registrarse" onTouchTap={this.props.accion} primary={true} />
+		<RaisedButton label={this.props.showTerminos ? 'Registrarse' : 'Actualizar'} onTouchTap={this.props.accion} primary={true} />
 	</div>
 	}
 }
