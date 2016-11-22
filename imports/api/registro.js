@@ -17,24 +17,22 @@ Meteor.methods({
       folio: registro.folio,
       fechaRegistro: new Date(),
       categoria: registro.categoria,
-      usuario: {
-        nombres: registro.usuario.nombres,
-        apPaterno: registro.usuario.apPaterno,
-        apMaterno: registro.usuario.apMaterno,
-        telefono: registro.usuario.telefono,
-        correo: registro.usuario.correo,
-        enfermedad: registro.usuario.enfermedad ? registro.usuario.enfermedad : '',
-        sexo: registro.usuario.sexo,
-        edad: registro.usuario.edad
-      },
-      contactoEmergencia: {
-        nombre: registro.contactoEmergencia.nombre,
-        telefono: registro.contactoEmergencia.telefono
-      }
+      usuario: registro.usuario,
+      contactoEmergencia: registro.contactoEmergencia
     });
   },
 
-  'registro.remove'(registroID) {
-    Registro.remove({_id: registroID});
+  'registro.remove'(id) {
+    Registro.remove({_id: id});
+  },
+  'registro.update'(id, registro) {
+    console.log('update', registro);
+    Registro.update({_id: id}, {
+      folio: registro.folio,
+      fechaRegistro: new Date(),
+      categoria: registro.categoria,
+      usuario: registro.usuario,
+      contactoEmergencia: registro.contactoEmergencia
+    });
   }
 });
